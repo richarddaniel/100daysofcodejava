@@ -1,0 +1,64 @@
+/*
+Create a function that returns true if the first array can be nested inside the second and false otherwise.
+
+arr1 can be nested inside arr2 if:
+
+arr1's min is greater than arr2's min.
+arr1's max is less than arr2's max.
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Let's find out if array 1 can nest in array 2. Enter the number of elements in array 1:");
+        int[] array1 = getArray();
+        System.out.println("Enter the number of elements in array 2:");
+        int[] array2 = getArray();
+        System.out.println("Can array 1 next is array 2?" + canNest(array1, array2));
+    }
+
+    public static int[] getArray(){
+        Scanner scanner = new Scanner(System.in);
+        int arraySize = scanner.nextInt();
+        int[] input = new int[arraySize];                           // Create an array sized as user input
+        System.out.println("Enter the " + arraySize + " elements in the array:");
+        for (int i = 0; i < input.length; i++){                     // Loop through the array, assigning values based on index
+            input[i] = scanner.nextInt();
+        }
+
+        return input;
+    }
+
+    public static boolean canNest(int[] array1, int[] array2){
+        boolean canNest = false;
+        int[] array1MinMax = getMaxMinValues(array1);
+        int[] array2MinMax = getMaxMinValues(array2);
+
+        if (array1MinMax[0]>array2MinMax[0] && array1MinMax[1]<array2MinMax[1]){
+            canNest = true;
+        }
+
+        return canNest;
+    }
+
+    public static int[] getMaxMinValues(int[] input){
+        int max = input[0];
+        int min = input[0];
+        int maxTemporary = 0;
+        int minTemporary = 0;
+        int[] values = new int[2];
+
+        for (int i = 0; i < input.length; i++){ // Simply loops through the array, comparing the values against each other and keeping the largest & smallest.
+            maxTemporary = input[i];
+            minTemporary = input[i];
+            max = Math.max(max, maxTemporary);
+            min = Math.min(min, minTemporary);
+        }
+
+        values[0] = min;
+        values[1] = max;
+
+        return values;
+    }
+}
