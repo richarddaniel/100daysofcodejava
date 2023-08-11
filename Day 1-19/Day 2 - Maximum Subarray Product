@@ -1,6 +1,8 @@
 /*
 Didn't get to finish this one... will come back to it tomorrow.
 
+EDIT: Figured out foreach loop, fixed Math.max comparison. Solved!
+
 Java: Maximum Product Subarray
 
 Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product. It is guaranteed that the answer will fit in a 32-bit integer.
@@ -17,6 +19,39 @@ Input: nums = [-2,0,-1]
 Output: 0
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 */
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in); 
+        System.out.println("Enter the number of elements in the array:");
+        int n = scanner.nextInt();
+        int[] input = new int[n];                                   // Create an array sized as user input
+        System.out.println("Enter the elements in the array:");     
+        for (int i = 0; i < input.length; i++){                     // Loop through the array, assigning values based on index
+            input[i] = scanner.nextInt();
+        }
+        scanner.close();
+        System.out.print("Max product of any two adjacent elements is: " + maxProduct(input)); // Output result
+    }
+
+    public static int maxProduct(int[] input){                                   // This intakes our array,
+        int max = 0;
+        int maxTemporary = 0;
+        int comparison = 0;
+
+        for (int i = 1; i < input.length; i++){
+            maxTemporary = Math.max(input[i], (input[i] * input[comparison]));  // And loops through it, starting with the first and second element.
+            max = Math.max(max, maxTemporary);                                  // It multiplies both elements, and compares it against the input by itself
+            comparison = i;                                                     // to avoid setting max to a negative or 0. 
+        } 
+        return max;
+    }
+}
+
+/*
+FIRST ATTEMPT
 
 import java.util.Scanner;
 
@@ -46,3 +81,4 @@ public class Main {
         return max;
     }
 }
+*/
