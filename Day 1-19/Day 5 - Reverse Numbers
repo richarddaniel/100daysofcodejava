@@ -1,0 +1,72 @@
+/*
+For a given input number, return the number in reverse.
+So, an input of 3956 should return 6593.
+
+Extra Challenge: Reverse Floats as well!
+
+Initial Thoughts: I kind of want to convert the number to an array of characters,
+and then reverse that array. That way, if it's a float, it doesn't even matter-
+same with scientific notation, as long as I make sure to exclude reversing everything
+that's not a number.
+
+Edit 1: Okay, the easiest method I've found is converting the int to a string.
+I'm not sure I like that, since I would rather reverse an array of chars, but I'll see if I can make this work.
+
+Edit 2: Okay, strings in Java suck and I hate them. They're typically immutable, so I'm going to have to convert
+the string into an array of characters, which feels bad (double conversion instead of direct conversation).
+
+Alternative would be to make a direct conversion function myself... something to think about.
+
+Final Edit: Okay, I decided to modify a method I saw searching for plagarism in books. Two pointers move towards
+each other pointing at opposites of the array. When they reach a special character, they skip it, and otherwise,
+they swap it.
+
+Along with overloading so that our main function only intakes a string, that means we could theoretically reverse any
+number data- including IPs or scientific notation, ect!
+ */
+public class Main {
+    public static void main(String[] args) {
+        System.out.printf("Hello and welcome!");
+    }
+    public static int numberReversal(int numberToReverse) { // Simple function so that our main function can intake
+        String reversed = reverseNumberString(Integer.toString(numberToReverse)); // only strings, therefore we can
+        return Integer.parseInt(reversed);                                        // take in any number data we want!
+    }
+
+    public static float numberReversal(float numberToReverse) { // Overloading!
+        String reversed = reverseNumberString(Float.toString(numberToReverse));
+        return Float.parseFloat(reversed);
+    }
+
+    private static String reverseNumberString(String numberString) {
+        char[] chars = numberString.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+
+        while (start < end) {
+            if (isSpecialChar(chars[start])) {
+                start++;
+                continue;
+            }
+
+            if (isSpecialChar(chars[end])) {
+                end--;
+                continue;
+            }
+
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+
+            start++;
+            end--;
+        }
+
+        return new String(chars);
+    }
+
+    private static boolean isSpecialChar(char c) {
+        return c == '-' || c == '.' || c == 'e' || c == '^';
+    }
+
+}
