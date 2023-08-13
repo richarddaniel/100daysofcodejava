@@ -1,0 +1,33 @@
+/*
+There might be a bomb hidden in a string!
+
+Write a boolean function that, when given a string, detects if there is a substring 'BOMB'.
+
+Edit: The first iteration of this was very simple, so I decided to expand upon the challenge.
+I want to detect a bomb even if it's broken up, with mixed capitalization.
+
+To accomplish this, I looked into 'Regular Expressions', and learned a bit about pattern compilation
+and matching.
+ */
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class Main {
+    public static void main(String[] args) {
+
+        System.out.printf("Hello and welcome!");
+
+    }
+    public static boolean containsBomb(String input) {
+        Pattern pattern = Pattern.compile("(?i)b.*o.*m.*b");
+        // Pattern.compile is us creating a pattern. (?i) makes it case insensitive.
+        // The leading asterisk means that we're looking for zero or more of the previous input.
+        // The trailing . means that we're specifically looking for the sequence b o m b, in that order.
+        Matcher matcher = pattern.matcher(input); // This just looks for the pattern in our string input,
+        return matcher.find();                    // and returns true if it finds it.
+    }
+}
+
+// Thoughts: Wow, this pattern matcher is very powerful. Is this why people use Java (lol)?
+// I can make a similar structure in C++, but it would take much more code. (with my current knowledge)
+// Interesting...
