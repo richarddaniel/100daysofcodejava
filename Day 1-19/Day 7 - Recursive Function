@@ -1,0 +1,21 @@
+/*
+Write a function that finds the sum of an array in Java. Make your function recursive.
+*/
+
+public class ArraySum {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5}; // Example array
+        int sum = findSum(array, array.length);
+        System.out.println("Sum of array elements: " + sum);
+    }
+
+    public static int findSum(int[] array, int n) {
+        // Base case: If array is empty
+        if (n <= 0) {
+            return 0;
+        }
+
+        // Recursive case: Sum the last element with the sum of the remaining array
+        return findSum(array, n - 1) + array[n - 1];
+    }
+}
